@@ -121,16 +121,17 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
     } else if (TAKE_SNAPSHOT_ACTION.equals(action)) {
       return takeSnapshot(args.getInt(0), callbackContext);
     }else if (START_RECORD_VIDEO_ACTION.equals(action)) {
-      String[] videoPermissions = getVideoPermissions();
+      // DEV-21243 : Commenting the permissions as we dont need them currently
+      // String[] videoPermissions = getVideoPermissions();
 
-      if (cordova.hasPermission(videoPermissions[0]) && cordova.hasPermission(videoPermissions[1]) && cordova.hasPermission(videoPermissions[2]) && cordova.hasPermission(videoPermissions[3])) {
-        return startRecordVideo(args.getString(0), args.getInt(1), args.getInt(2), args.getInt(3), args.getBoolean(4), callbackContext);
-      } else {
-        this.execCallback = callbackContext;
-        this.execArgs = args;
-        cordova.requestPermissions(this, VID_REQ_CODE, videoPermissions);
-        return true;
-      }
+      // if (cordova.hasPermission(videoPermissions[0]) && cordova.hasPermission(videoPermissions[1]) && cordova.hasPermission(videoPermissions[2]) && cordova.hasPermission(videoPermissions[3])) {
+      //   return startRecordVideo(args.getString(0), args.getInt(1), args.getInt(2), args.getInt(3), args.getBoolean(4), callbackContext);
+      // } else {
+      //   this.execCallback = callbackContext;
+      //   this.execArgs = args;
+      //   cordova.requestPermissions(this, VID_REQ_CODE, videoPermissions);
+      //   return true;
+      // }
     } else if (STOP_RECORD_VIDEO_ACTION.equals(action)) {
       return stopRecordVideo(callbackContext);
     } else if (COLOR_EFFECT_ACTION.equals(action)) {
@@ -1171,21 +1172,22 @@ public class CameraPreview extends CordovaPlugin implements CameraActivity.Camer
     return true;
   }
 
-  private String[] getVideoPermissions() {
-    ArrayList<String> permissions = new ArrayList<>();
+  // DEV-21243 : Commenting the permissions as we dont need them currently
+  // private String[] getVideoPermissions() {
+  //   ArrayList<String> permissions = new ArrayList<>();
 
-    permissions.add(Manifest.permission.CAMERA);
-    permissions.add(Manifest.permission.RECORD_AUDIO);
+  //   permissions.add(Manifest.permission.CAMERA);
+  //   permissions.add(Manifest.permission.RECORD_AUDIO);
 
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-      permissions.add(Manifest.permission.READ_MEDIA_IMAGES);
-      permissions.add(Manifest.permission.READ_MEDIA_VIDEO);
-    } else {
-      // Android API 32 or lower
-      permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
-      permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-    }
+  //   if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+  //     permissions.add(Manifest.permission.READ_MEDIA_IMAGES);
+  //     permissions.add(Manifest.permission.READ_MEDIA_VIDEO);
+  //   } else {
+  //     // Android API 32 or lower
+  //     permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+  //     permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+  //   }
 
-    return permissions.toArray(new String[0]);
-  }
+  //   return permissions.toArray(new String[0]);
+  // }
 }
