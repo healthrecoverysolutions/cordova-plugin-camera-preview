@@ -37,6 +37,8 @@ import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
 import androidx.exifinterface.media.ExifInterface;
 
 import org.apache.cordova.LOG;
@@ -283,8 +285,13 @@ public class CameraActivity extends Fragment {
   @Override
   public void onResume() {
     super.onResume();
-
-    mCamera = Camera.open(defaultCameraId);
+    try {
+        mCamera = Camera.open(defaultCameraId);  // open camera
+    } catch (RuntimeException e) {
+        Log.e(TAG, "Failed to open camera: " + e.getMessage());
+        // may be as one of the default camera stream is already running thus it has failed to open camera
+        Toast.makeText(getContext(), "Unable to load camera, please try turning off camera used by any other functionality and try again", Toast.LENGTH_LONG).show();
+    }
 
     if (cameraParameters != null) {
       mCamera.setParameters(cameraParameters);
