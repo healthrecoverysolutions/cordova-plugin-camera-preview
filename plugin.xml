@@ -23,6 +23,10 @@
     <source-file src="src/android/camera_theme.xml" target-dir="res/values" />
     <source-file src="src/android/camera_ids.xml" target-dir="res/values" />
 
+    <config-file target="res/values/strings.xml" parent="/*">
+      <string name="camera_preview_error">Unable to load camera, please try turning off camera used by any other functionality and try again</string>
+    </config-file> 
+
     <framework src="androidx.exifinterface:exifinterface:1.2.0" />
 
     <config-file target="res/xml/config.xml" parent="/*">

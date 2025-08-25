@@ -289,8 +289,9 @@ public class CameraActivity extends Fragment {
         mCamera = Camera.open(defaultCameraId);  // open camera
     } catch (RuntimeException e) {
         Log.e(TAG, "Failed to open camera: " + e.getMessage());
+        int resId = getActivity().getResources().getIdentifier("camera_preview_error", "string", getActivity().getPackageName());
         // may be as one of the default camera stream is already running thus it has failed to open camera
-        Toast.makeText(getContext(), "Unable to load camera, please try turning off camera used by any other functionality and try again", Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), getActivity().getResources().getString(resId), Toast.LENGTH_LONG).show();
     }
 
     if (cameraParameters != null) {
